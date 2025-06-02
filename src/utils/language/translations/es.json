@@ -1,0 +1,33 @@
+{
+  "fields": {
+    "id": "ID",
+    "name": "Nombre",
+    "description": "Descripción",
+    "logo": "Logo",
+    "date_release": "Fecha de Liberación",
+    "date_revision": "Fecha de Revisión",
+    "search": "Buscar..."
+  },
+  "button": {
+    "add": "Agregar",
+    "confirm": "Confirmar",
+    "cancel": "Cancelar",
+    "edit": "Editar",
+    "delete": "Eliminar",
+    "send": "Enviar",
+    "restart": "Reiniciar"
+  },
+  "screen": {
+    "confirmDelete": "¿Estás seguro de eliminar el producto {{name}}?",
+    "extraInformation": "Información extra",
+    "registrationForm": "Formulario de Registro",
+    "noProducts": "No hay productos"
+  },
+  "validation": {
+    "required": "es requerido",
+    "length": "debe tener entre {{min}} y {{max}} caracteres",
+    "invalidDate": "Fecha invalida",
+    "invalidReleaseDate": "debe ser igual o mayor a la fecha actual",
+    "invalidRevisionDate": "debe ser exactamente un año posterior de la fecha de liberación"
+  }
+}

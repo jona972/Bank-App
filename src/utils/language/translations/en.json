@@ -1,0 +1,33 @@
+{
+  "fields": {
+    "id": "ID",
+    "name": "Name",
+    "description": "Description",
+    "logo": "Logo",
+    "date_release": "Date Release",
+    "date_revision": "Date Revision",
+    "search": "Search..."
+  },
+  "button": {
+    "add": "Add",
+    "confirm": "Confirm",
+    "cancel": "Cancel",
+    "edit": "Edit",
+    "delete": "Delete",
+    "send": "Send",
+    "restart": "Restart"
+  },
+  "screen": {
+    "confirmDelete": "Are you sure to remove the {{name}} product?",
+    "extraInformation": "Extra information",
+    "registrationForm": "Registration Form",
+    "noProducts": "No products"
+  },
+  "validation": {
+    "required": "is required",
+    "length": "must be between {{min}} and {{max}} characters",
+    "invalidDate": "Invalid date",
+    "invalidReleaseDate": "must be equal to or greater than the current date",
+    "invalidRevisionDate": "must be exactly one year after release"
+  }
+}
