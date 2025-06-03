@@ -1,8 +1,8 @@
-# Bank App 👋
+# Technical Test – React Native (Bank App) 👋
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+This project is a solution to the technical test requested for the Frontend – React Native position. It was developed using the latest practices and tools in the React Native ecosystem.
 
-## Get started
+## 🚀 Get started
 
 1. Install dependencies
 
@@ -25,14 +25,34 @@ In the output, you'll find options to open the app in a
 
 You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
 
-## Learn more
+## 🧪 Running Tests
+
+```bash
+   npm run test -- --coverage
+   # or
+   yarn test --coverage
+   ```
+
+## 🛠 Tech Stack
+- React Native 0.7+
+- React 18+
+- TypeScript 4.8+
+- Jest for unit testing
+
+## ⚙️ Enviroment variables
+
+You must parameterize the environment variables by creating an .env file in the main root of the project, and it must contain the following:
+
+- **EXPO_PUBLIC_API_URL**= // URL of the backend api
+
+## 📘 Learn more
 
 To learn more about developing your project with Expo, look at the following resources:
 
 - [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
 - [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
 
-## Join the community
+## 🤝 Join the community
 
 Join our community of developers creating universal apps.
 
