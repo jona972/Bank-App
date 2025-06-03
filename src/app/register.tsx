@@ -1,6 +1,7 @@
 import { getProductById, saveProduct, updateProduct } from "@/api/products";
 import Button from "@/components/Button";
 import DateTimePicker from "@/components/DateTimePicker";
+import ErrorBox from "@/components/ErrorBox";
 import Header from "@/components/Header";
 import Input from "@/components/Input";
 import { COLORS } from "@/constants/Theme";
@@ -18,6 +19,7 @@ import { SafeAreaView, ScrollView, StyleSheet, Text, View } from "react-native";
 const Register = () => {
   const { id } = useLocalSearchParams();
   const { t } = useTranslation();
+  const [error, setError] = useState<string>("");
   const { data: product } = useQuery({
     queryKey: ["productById", id],
     queryFn: () => getProductById(id as string),
@@ -33,21 +35,11 @@ const Register = () => {
   });
   const saveMutation = useMutation({
     mutationFn: saveProduct,
-    onSuccess: (data) => {
-      console.log("Producto creado:", data);
-    },
-    onError: (error) => {
-      console.error("Error:", error);
-    },
+    onError: (error) => setError(String(error)),
   });
   const updateMutation = useMutation({
     mutationFn: updateProduct,
-    onSuccess: (data) => {
-      console.log("Producto actualizado:", data);
-    },
-    onError: (error) => {
-      console.error("Error:", error);
-    },
+    onError: (error) => setError(String(error)),
   });
 
   const handleSubmit = () => {
@@ -128,6 +120,7 @@ const Register = () => {
               }
               errorText={formState.inputValidities.date_release}
               title={t("fields.date_release")}
+              testID="date-picker-release"
               displayValue={
                 formState.inputValues.date_release || t("fields.date_release")
               }
@@ -152,11 +145,13 @@ const Register = () => {
               }
               errorText={formState.inputValidities.date_revision}
               title={t("fields.date_revision")}
+              testID="date-picker-revision"
               displayValue={
                 formState.inputValues.date_revision || t("fields.date_revision")
               }
             />
           </View>
+          {error && <ErrorBox message={error} />}
         </ScrollView>
         <View style={styles.fixedButton}>
           <Button

@@ -26,7 +26,7 @@
   "validation": {
     "required": "is required",
     "length": "must be between {{min}} and {{max}} characters",
-    "invalidDate": "Invalid date",
+    "invalidDate": "invalid date",
     "invalidReleaseDate": "must be equal to or greater than the current date",
     "invalidRevisionDate": "must be exactly one year after release"
   }
