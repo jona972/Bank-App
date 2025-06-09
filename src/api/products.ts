@@ -13,7 +13,7 @@ export const getProductById = async (id: string): Promise<Product> => {
   const res = await fetch(`${API_URL}/bp/products/${id}`);
   if (!res.ok) throw new Error("Error in obtaining the product");
   const data: Product = await res.json();
-  return data ?? {};
+  return data;
 };
 
 export const saveProduct = async (product: Product) => {

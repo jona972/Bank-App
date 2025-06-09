@@ -1,7 +1,13 @@
+import { getProductById } from "@/api/products";
 import Detail from "@/app/details/[id]";
 import { NavigationContainer } from "@react-navigation/native";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { fireEvent, render, waitFor } from "@testing-library/react-native";
+import {
+  cleanup,
+  fireEvent,
+  render,
+  waitFor,
+} from "@testing-library/react-native";
 
 const queryClient = new QueryClient();
 const mockedNavigate = jest.fn();
@@ -23,17 +29,17 @@ jest.mock("expo-router", () => ({
   }),
 }));
 
+jest.mock("@/api/products", () => ({
+  getProductById: jest.fn(),
+}));
+
 describe("<Detail />", () => {
   beforeEach(() => {
     mockedNavigate.mockClear();
-    (fetch as jest.Mock).mockResolvedValueOnce({
-      json: async () => ({
-        result: { success: true },
-      }),
-    });
   });
 
   afterEach(() => {
+    cleanup();
     queryClient.clear();
     queryClient.cancelQueries();
   });
@@ -47,6 +53,7 @@ describe("<Detail />", () => {
   );
 
   test("renders the component without any errors", async () => {
+    (getProductById as jest.Mock).mockResolvedValue({ id: "test-id" });
     const { getByText } = render(renderDetail());
     await waitFor(() => {
       expect(getByText("BANCO")).toBeTruthy();
@@ -62,6 +69,7 @@ describe("<Detail />", () => {
   });
 
   test("allow navigation to the Edit Product", async () => {
+    (getProductById as jest.Mock).mockResolvedValue({ id: "test-id" });
     const { getByText } = render(renderDetail());
     await waitFor(() => {
       fireEvent.press(getByText("button.edit"));

@@ -1,44 +1,72 @@
 import DateTimePicker from "@/components/DateTimePicker";
+import { getStringDate } from "@/utils/formatter";
 import { fireEvent, render } from "@testing-library/react-native";
 import React from "react";
 
-describe("DateTimePicker", () => {
+describe("<DateTimePicker />", () => {
+  const currenDate = new Date();
+  const dateFormat = getStringDate(currenDate);
+
   const baseProps = {
-    displayValue: "2025-06-02",
+    displayValue: dateFormat,
     isVisible: false,
     showPicker: jest.fn(),
     hidePicker: jest.fn(),
     onGetValue: jest.fn(),
+    onChange: jest.fn(),
     mode: "date" as const,
-    value: new Date("2025-06-02"),
-    testID: "date-picker",
+    value: currenDate,
   };
 
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
-  it("renders with title and value", () => {
+  test("renders with title and value", () => {
     const { getByText } = render(
-      <DateTimePicker {...baseProps} title="Fecha de lanzamiento" />
+      <DateTimePicker {...baseProps} title="fields.date_release" />,
     );
 
-    expect(getByText("Fecha de lanzamiento")).toBeTruthy();
-    expect(getByText("2025-06-02")).toBeTruthy();
+    expect(getByText("fields.date_release")).toBeTruthy();
+    expect(getByText(dateFormat)).toBeTruthy();
   });
 
-  it("renders error text if provided", () => {
+  test("renders error text if provided", () => {
     const { getByText } = render(
-      <DateTimePicker {...baseProps} errorText="Campo requerido" />
+      <DateTimePicker {...baseProps} errorText="is required" />,
     );
 
-    expect(getByText("Campo requerido")).toBeTruthy();
+    expect(getByText("is required")).toBeTruthy();
   });
 
-  it("calls showPicker when touched", () => {
-    const { getByTestId } = render(<DateTimePicker {...baseProps} />);
+  test("calls showPicker when touched", () => {
+    const { getByText } = render(<DateTimePicker {...baseProps} />);
 
-    fireEvent.press(getByTestId("date-picker"));
+    fireEvent.press(getByText(dateFormat));
     expect(baseProps.showPicker).toHaveBeenCalled();
+  });
+
+  test("renders DateTimePicker when isVisible is true", () => {
+    const { getByTestId } = render(
+      <DateTimePicker {...baseProps} isVisible={true} />,
+    );
+
+    expect(getByTestId("date-picker")).toBeTruthy();
+  });
+
+  test("calls onGetValue and onChange when date is selected", () => {
+    const { getByTestId } = render(
+      <DateTimePicker {...baseProps} isVisible={true} />,
+    );
+    const picker = getByTestId("date-picker");
+
+    fireEvent(picker, "onChange", { type: "set" }, currenDate);
+
+    expect(baseProps.onChange).toHaveBeenCalledWith(
+      { type: "set" },
+      currenDate,
+    );
+    expect(baseProps.hidePicker).toHaveBeenCalled();
+    expect(baseProps.onGetValue).toHaveBeenCalledWith(dateFormat);
   });
 });

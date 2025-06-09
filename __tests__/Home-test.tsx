@@ -2,7 +2,7 @@ import { getProducts } from "@/api/products";
 import Home from "@/app/index";
 import { NavigationContainer } from "@react-navigation/native";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { fireEvent, render, waitFor } from "@testing-library/react-native";
+import { cleanup, fireEvent, render, waitFor } from "@testing-library/react-native";
 
 const queryClient = new QueryClient();
 const mockedNavigate = jest.fn();
@@ -44,14 +44,10 @@ const products = [
 describe("<Home />", () => {
   beforeEach(() => {
     mockedNavigate.mockClear();
-    (fetch as jest.Mock).mockResolvedValueOnce({
-      json: async () => ({
-        result: { success: true },
-      }),
-    });
   });
 
   afterEach(() => {
+    cleanup();
     queryClient.clear();
     queryClient.cancelQueries();
   });
@@ -65,6 +61,7 @@ describe("<Home />", () => {
   );
 
   test("renders the component without any errors", async () => {
+    (getProducts as jest.Mock).mockResolvedValue(products);
     const { getByText } = render(renderHome());
     await waitFor(() => {
       expect(getByText("BANCO")).toBeTruthy();
@@ -84,16 +81,13 @@ describe("<Home />", () => {
   });
 
   test("should render empty message when no products are available", async () => {
-    (fetch as jest.Mock).mockResolvedValueOnce({
-      json: async () => [],
-    });
-
+    (getProducts as jest.Mock).mockResolvedValue([]);
     const { findByText } = render(renderHome());
     expect(await findByText("screen.noProducts")).toBeTruthy();
   });
 
   test("should filter the product list based on the search term", async () => {
-    (getProducts as jest.Mock).mockResolvedValueOnce(products);
+    (getProducts as jest.Mock).mockResolvedValue(products);
     const { getByPlaceholderText, findByText, queryByText } =
       render(renderHome());
     const input = getByPlaceholderText("fields.search");
@@ -104,6 +98,7 @@ describe("<Home />", () => {
   });
 
   test("allow navigation to the Add Product", async () => {
+    (getProducts as jest.Mock).mockResolvedValue(products);
     const { getByText } = render(renderHome());
     await waitFor(() => {
       fireEvent.press(getByText("button.add"));

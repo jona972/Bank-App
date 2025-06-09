@@ -20,4 +20,18 @@ jest.mock("react-i18next", () => ({
   },
 }));
 
+jest.mock("@react-native-community/datetimepicker", () => {
+  const React = require("react");
+  return {
+    __esModule: true,
+    default: jest.fn().mockImplementation(({ value, onChange, testID }) => {
+      return React.createElement("DateTimePicker", {
+        testID: testID || "date-picker",
+        value: value || new Date(),
+        onChange: onChange || (() => {}),
+      });
+    }),
+  };
+});
+
 jest.mock("expo-font");

@@ -120,7 +120,6 @@ const Register = () => {
               }
               errorText={formState.inputValidities.date_release}
               title={t("fields.date_release")}
-              testID="date-picker-release"
               displayValue={
                 formState.inputValues.date_release || t("fields.date_release")
               }
@@ -145,7 +144,6 @@ const Register = () => {
               }
               errorText={formState.inputValidities.date_revision}
               title={t("fields.date_revision")}
-              testID="date-picker-revision"
               displayValue={
                 formState.inputValues.date_revision || t("fields.date_revision")
               }

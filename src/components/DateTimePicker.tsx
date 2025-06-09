@@ -48,11 +48,7 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
   return (
     <>
       <Text style={styles.title}>{title}</Text>
-      <TouchableOpacity
-        style={styles.container}
-        onPress={showPicker}
-        testID={props.testID}
-      >
+      <TouchableOpacity style={styles.container} onPress={showPicker}>
         <View
           style={[
             styles.dateContainer,
@@ -63,11 +59,7 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
         </View>
       </TouchableOpacity>
       {isVisible && (
-        <CommunityDateTimePicker
-          testID={props.testID ? `${props.testID}-inner` : "date-picker"}
-          {...props}
-          onChange={onChangePicker}
-        />
+        <CommunityDateTimePicker {...props} onChange={onChangePicker} />
       )}
       {errorText && (
         <View style={styles.errorContainer}>

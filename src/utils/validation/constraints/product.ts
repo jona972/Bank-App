@@ -25,7 +25,7 @@ const registerCustomValidators = (t: (key: string) => string) => {
     key: string,
     attributes: any,
   ) {
-    const releaseDate = new Date(attributes.record.date_release);
+    const releaseDate = new Date(attributes.record?.date_release);
     const revisionDate = new Date(value);
     if (
       revisionDate.getFullYear() !== releaseDate.getFullYear() + 1 ||
